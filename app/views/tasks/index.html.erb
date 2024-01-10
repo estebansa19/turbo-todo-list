@@ -1,0 +1,36 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="block justify-between items-center">
+    <h1 class="font-bold text-4xl">Tasks</h1>
+
+    <div class="tasks-form my-5">
+      <%= form_with(model: @task, class: "contents") do |form| %>
+        <%= form.label :name, 'Nombre de tarea' %>
+        <%= form.text_field :name %>
+
+        <%= form.submit 'Enviar', class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= turbo_stream_from 'tasks' %>
+
+<div class="contents">
+  <div class="tasks-container my-5">
+    <h2 class="font-bold">TO DO</h2>
+    <%= turbo_frame_tag :todo_list do %>
+      <%= render @pending_tasks %>
+    <% end %>
+  </div>
+
+  <div class="tasks-container my-5">
+    <h2 class="font-bold">Done</h2>
+    <%= turbo_frame_tag :done_list do %>
+      <%= render @done_tasks %>
+    <% end %>
+  </div>
+</div>

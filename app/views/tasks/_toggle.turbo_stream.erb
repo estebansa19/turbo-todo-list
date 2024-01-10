@@ -1,0 +1,5 @@
+<%= turbo_stream.remove dom_id(task) %>
+
+<%= turbo_stream.append task.completed ? :done_list : :todo_list do %>
+  <%= render task %>
+<% end %>
